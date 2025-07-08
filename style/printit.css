@@ -1,0 +1,650 @@
+@media print {
+
+  /* --------------------------------------------------- Mise en page générale */
+
+  /**** variable qui nous permet de connaitre la hauteur de l’empagement, la "page area"  */
+  /**** utilise les propriétés personnalisées CSS générées par paged.js  */
+  .pagedjs_page {
+    --pagedjs-pagearea-height: calc(var(--pagedjs-height) - var(--pagedjs-margin-top) - var(--pagedjs-margin-bottom) );
+  }
+  
+  @page {
+    /**** Format du document imprimé : A3  */
+    size: 24cm 32cm;
+    /**** Marges hautes (blanc de tête) et basses (blanc de pied) pour toutes les pages  */
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+    font-family: 'MonaspaceXenon-Regular';
+/*  marks: crop; */
+  }
+
+  body {
+      line-height: var(--baseline);
+  }
+
+  /* Masquer les numéros de page sur les pages avant la section `titre` */
+  section.cover-1, section.empty, section.faux_titre {
+    counter-reset: none;
+  }
+
+  section.titre {
+    counter-reset: page 1; /* Redémarrer la numérotation à partir de 1 */
+  }
+
+  @font-face {
+    font-family: 'MonaspaceXenon-Regular';
+    src: url('../fonts/MonaspaceXenon-Regular.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'MonaspaceXenon-Italic';
+    src: url('../fonts/MonaspaceXenon-Italic.woff') format('woff');
+  }
+
+  :root {
+    --main-color: #f02d3a; /* Définition de la couleur principale */
+    --secondary-color: darkred; /* Exemple d'une couleur secondaire */
+    --none-color: white; /* Exemple d'une couleur secondaire */
+    --background-color: #ffffff; /* Couleur de fond */
+    --text-color: #0000; /* Couleur du texte */
+    --font-size: 9pt;
+    --lineheight: 6pt;
+    --baseline: 6pt; /* Ajuste cette valeur selon l'unité de base souhaitée */
+}
+
+
+
+  @page :left {
+    margin-right: 3cm;
+    margin-left: 0.5cm;
+
+      /* Pour les pages de gauche */
+      @bottom-left {
+          content: element(booktitle);
+          font-size: var(--font-size);
+          line-height: calc(var(--baseline) * 2);
+          width: fit-content;
+          margin-left: 3cm;
+          margin-bottom: 0.5cm;
+          margin-top: -0.18cm;
+      }
+
+      /* Numéro de page sur les pages de gauche */
+      @bottom-left-corner {
+          content: counter(page);
+          font-size: var(--font-size);
+          line-height: calc(var(--baseline) * 2);
+          margin-left: 0.5cm;
+          margin-bottom: 0.5cm;
+          margin-top: -0.18cm;
+      }
+  }
+
+  @page :right {
+    margin-right: 0.5cm;
+    margin-left: 3cm;
+
+      /* Pour les pages de droite */
+      @bottom-left {
+          content: element(chaptertitle);
+          break-after: avoid;
+          font-size: var(--font-size);
+          line-height: calc(var(--baseline) * 2);
+          width: fit-content;
+          margin-left: 3cm;
+          margin-bottom: 0.5cm;
+          margin-top: -0.18cm;
+      }
+
+      /* Numéro de page sur les pages de droite */
+      @bottom-left-corner {
+          content: counter(page);
+          font-size: var(--font-size);
+          line-height: calc(var(--baseline) * 2);
+          margin-left: 0.5cm;
+          margin-bottom: 0.5cm;
+          margin-top: -0.18cm;
+      }
+  }
+
+  @page couverture {
+    background-image: url(../import/Materica-Clay-scaled.jpg);
+      /* Neutralise les éléments de bas de page pour la page couverture */
+      @bottom-left { content: none; }
+      @bottom-left-corner { content: none; }
+      @bottom-right { content: none; }
+      @bottom-right-corner { content: none; }
+  }
+
+  @page colophon {
+    background-size: cover;
+    background-image: url(../import/Materica-Clay-scaled.jpg);
+      /* Neutralise les éléments de bas de page pour la page colophon */
+      @bottom-left { content: none; }
+      @bottom-left-corner { content: none; }
+      @bottom-right { content: none; }
+      @bottom-right-corner { content: none; }
+  }
+
+  @page cover-4 {
+    background-size: cover;
+    background-image: url(../import/Materica-Clay-scaled.jpg);
+      /* Neutralise les éléments de bas de page pour la page colophon */
+      @bottom-left { content: none; }
+      @bottom-left-corner { content: none; }
+      @bottom-right { content: none; }
+      @bottom-right-corner { content: none; }
+  }
+
+  /* --------------------------------------------------- Contenus générés / positionnés en margin-box  */
+
+  #booktitle {
+      position: running(booktitle);
+      font-size: var(--font-size);
+  }
+
+  #chaptertitle {
+      position: running(chaptertitle);
+      font-size: var(--font-size-chapter);
+  }
+
+  /* --------------------------------------------------- Couverture */
+
+  .cover-1 {
+    page: couverture; /**** affecte à la <section class="cover-1"> le gabarit de page "couverture"*/
+  }
+
+  .cover-1 img{
+    opacity: 0.95;
+  }
+
+  .cover-1 h1,h2{
+    opacity: 0.95;
+  }
+
+  @page couverture{
+    background-size: cover;
+    background-image: url(../import/Materica-Clay-scaled.jpg);
+    color: black;
+  }
+
+  .cover-1 h1{
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+  .cover-1 h2{
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    margin-top: var(--baseline); /* Ajoute une marge supérieure égale à la ligne de base */
+  }
+  .cover-1 h3{
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  img.couv{
+    margin-top: 1cm;
+    mix-blend-mode: multiply !important;
+    border: 1px solid red;
+  }
+
+  /* --------------------------------------------------------------------- Titre */
+
+  .titre{
+    page: empty;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    break-before: right;
+  }
+
+  /* --------------------------------------------------------------------- Faux-titre */
+
+  .faux_titre {
+    page: empty;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    break-before: right; /**** oblige la section à commencer sur une page de droite */
+  }
+
+  /* --------------------------------------------------------------------- Intro */
+
+  .intro {
+    page: intro; /**** affecte à la <section class="intro"> le gabarit de page intro*/
+    break-before: right; /**** oblige la section à commencer sur une page de droite */
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  @page intro {
+      margin-left: 3cm; 
+      margin-right: 0.5cm;
+  }
+
+  p.text_avant_propos_2{
+    page: left;
+    margin-right: 3cm;
+  }
+
+  p.text_avant_propos{
+    margin-left: 3cm;
+  }
+
+  p.notes{
+    margin-left: 3cm;
+    width: 35%;
+  }
+
+  /* --------------------------------------------------------------------- Texte */
+
+  /* Page pour la première section */
+  @page section1 {
+    @bottom-right {
+      font-size: var(--font-size);
+      line-height: calc(var(--baseline) * 2);
+    }
+  }
+
+  .section1{
+    page: section1; /**** affecte à la <section class="intro"> le gabarit de page intro*/
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  .section4{
+    page: section4; /**** affecte à la <section class="intro"> le gabarit de page intro*/
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  .section1,.section2,.section3,.section4 p{
+    margin-left: 3cm;
+  }
+
+  div.titres_chapitres{
+    width: 100%;
+  }
+
+  p.catalogues{
+    padding-right: 2cm;
+  }
+
+
+  /* --------------------------------------------------------------------- Sommaire */
+
+  .sommaire{
+    page: left2;
+    break-before: right;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  .sommaire p#tab{
+    margin-left: 3cm;
+  }
+  
+  @page sommaire{
+    background-color: var(--background-color);
+
+  }
+
+  /* --------------------------------------------------------------------- Texte */
+
+  .cover-4 {
+    page: cover-4;
+    color: black;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  .colophon-intro{
+    margin-top: calc(var(--baseline) * 4);
+  }
+
+  .colophon-intro p{
+    margin-bottom: calc(var(--baseline) * 2);;
+  }
+
+  .colophon-details {
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2);
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .colophon-section {
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2);
+    flex: 1 1 45%; /* Deux colonnes */
+    box-sizing: border-box;
+  }
+
+  .colophon-section h3 {
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2);
+  }
+
+  .colophon-section p {
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2);
+    margin-bottom: calc(var(--baseline) * 2);
+  }
+
+  span.invisible-2{
+    margin-left: -1cm;
+  }
+
+  section.colophon p{
+    color: black;
+  }
+
+  section.colophon {
+      content: none;
+      font-size: var(--font-size);
+      line-height: calc(var(--baseline) * 2);
+      break-after: page; /* Ajoute un saut de page avant cette section */
+  }
+
+  section.colophon {
+    width: 100%;
+    page: colophon;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  figcaption.image_caption{
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    width: 45%;
+    margin-left: 3cm;
+  }
+
+  figcaption.legendes{
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    margin-left: 6pt;
+    width: fit-content;
+  }
+
+  figcaption.legendes-exhibitions{
+    position: absolute;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    width: 100%;
+    text-align: right;
+  }
+
+  sup{
+    position: relative;
+    top: -3pt;
+    font-size: 6pt;
+    line-height: var(--lineheight);
+  }
+
+  /* Conteneur pour la page de gauche */
+  .page_left_page {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      page: section1; /* Spécifie qu'il s'agit de la page de gauche */
+  }
+
+  /* ---- .grid-item ---- */
+
+  /* Conteneur de la grille */
+  #galerie {
+      display: flex; /* Utilisation de Flexbox pour le layout */
+      flex-wrap: wrap; /* Permet aux éléments de s'enrouler */
+      justify-content: flex-start; /* Aligne les éléments à gauche */
+      gap: 0.2cm; /* Espace entre les éléments */
+      margin: 0; /* Marges du conteneur */
+  }
+
+  div.all_elements{
+    height: 65vh;
+    display: flex;
+  }
+
+
+
+/* Conteneur des éléments */
+.all_elements_exhibitions {
+  width: 92%;
+  display: flex;
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
+  gap: 10px; /* Espacement entre les éléments */
+  justify-content: flex-start; /* Aligne les images au début */
+}
+
+/* Styles pour les éléments */
+.grid-item-exhibitions {
+  flex: 1 1 calc(33.33% - 10px); /* Trois images par ligne, moins l'espace du gap */
+  box-sizing: border-box; /* Inclut la bordure dans le calcul des dimensions */
+}
+
+/* Styles pour les images */
+.grid-item-exhibitions img {
+  display: block; /* Supprime tout comportement inline */
+  width: 100%; /* L'image remplit le conteneur */
+  height: auto; /* Conserve les proportions */
+  margin: 0;
+}
+
+
+  /* Styles pour les éléments de la grille */
+  .grid-item {
+      height: fit-content;
+      width: calc(80% - 0.2cm); /* Largeur moins l'espacement pour chaque image */
+      @bottom-right { content: none; } /* Aucun contenu pour la page colophon */
+  }
+
+  /* Styles pour les images */
+  .grid-item img {
+      display: block; /* Évite l'espace en bas des images */
+      max-width: 100%; /* Assure que l'image ne dépasse pas le conteneur */
+      height: auto; /* Conserve les proportions des images */
+      margin-top: 0.05cm;
+      object-fit: cover; /* Couvre l'espace du conteneur sans déformation */
+  }
+
+  img.auto{
+    height: 1100px;
+  }
+
+  section.index{
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  section.exhibitions{
+    page: pagination;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+  }
+
+  section.exhibitions p{
+    margin-left: 2cm;
+  }
+
+  section.exhibitions ul{
+    margin-left: 2cm;
+  }
+
+  section.intro{
+    page: pagination;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    break-before: right; /**** oblige la section à commencer sur une page de droite */ 
+  }
+
+  .entry {
+    margin-left: 2cm;
+    font-size: var(--font-size);
+    line-height: calc(var(--baseline) * 2); /* Assure une hauteur de ligne égale à la baseline */
+    display: flex;
+  }
+
+  .title {
+    flex: 1; /* Le titre prend tout l'espace restant */
+  }
+
+
+  span.italic{
+    font-family: "MonaspaceXenon-Italic";
+  }
+
+  span.date,span.number{
+    margin-right: 2cm;
+  }
+
+  span.page{
+    width: 5%;
+    margin-right: 2cm;
+  }
+
+  span.invisible{
+    margin-right: 2.7cm;
+  }
+
+  span.retrait_1{
+    display: inline-block;
+    width: 55%;
+    margin-left: 3cm;
+  }
+
+  span.retrait_2{
+    display: inline-block;
+    width: 75%;
+    margin-left: 3cm;
+  }
+
+  span.white{
+    color: white;
+  }
+
+  ul.left-marge{
+    margin-: 2cm;
+  }
+
+  section.full_image{
+      background-color: var(--background-color);
+      page: full_image;
+      display: flex; /* Utilise flexbox */
+      justify-content: center; /* Centre horizontalement */
+      align-items: center; /* Centre verticalement */
+      margin-top: 2cm;
+      width: 100%;
+      height: 100%;
+  }
+
+  section.full_image_dadamaino {
+      background-color: var(--background-color);
+      page: full_image;
+      display: flex; /* Utilise flexbox */
+      justify-content: center; /* Centre horizontalement */
+      align-items: center; /* Centre verticalement */
+      width: 100%;
+      height: 100%;
+  }
+
+  section.full_image_dadamaino img {
+    width: 35cm;
+    height: 32cm;
+    margin-right: 1.5cm;
+    object-fit: cover; /* Prend toute la hauteur et la largeur, potentiellement en coupant */
+  }
+
+  @page full_image {
+      margin: 0;
+      @bottom-left { content: none; }
+      @bottom-left-corner { content: none; }
+      @bottom-right { content: none; }
+      @bottom-right-corner { content: none; }
+  }
+
+/* Section contenant l'image, qui occupe toute la hauteur et largeur de la page */
+.full_image_center {
+    page: full_image_center;
+    height: 100vh; /* Utilise toute la hauteur de la vue */
+    width: 100vw; /* Utilise toute la largeur de la vue */
+    display: flex; /* Flexbox pour centrer le contenu */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    margin: 0; /* Supprime les marges */
+    padding: 0; /* Supprime les paddings */
+    overflow: hidden; /* Empêche tout débordement */
+    box-sizing: border-box; /* S'assure que le dimensionnement inclut les bordures et les paddings */
+}
+
+/* L'image dans la section prend toute la largeur et hauteur de la section */
+section.full_image_center img {
+    margin-right: 2000px;
+    scale: 0.325;
+    margin-top: -518px;
+    height: fit-content; /* Remplir toute la hauteur de la section */
+    object-fit: cover; /* Remplir la section tout en maintenant les proportions, sans déformation */
+}
+
+/* Réglages de la page dans Paged.js pour s'assurer qu'il n'y a pas de marges */
+@page full_image_center {
+    margin: 0; /* Supprime toutes les marges de la page */
+    size: 24cm 32cm; /* Définit précisément les dimensions de la page (vous pouvez ajuster selon vos besoins) */
+    @bottom-right { content: ""; } /* Supprime les numéros de page */
+    @bottom-left { content: ""; }
+}
+
+img.logo{
+  width: 7%;
+}
+
+img#code {
+    position: absolute;
+    bottom: 0;
+    width: 20%; 
+}
+
+@page pagination{
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+  @bottom-right-corner { content: none; }
+}
+
+@page empty{
+  @bottom-left { content: none; }
+  @bottom-left-corner { content: none; }
+  @bottom-right { content: none; }
+  @bottom-right-corner { content: none; }
+}
+
+  section.empty{
+    page: empty;
+  }
+
+  
+
+@media print {
+    section.full_image_center img {
+        display: block !important;
+        width: 100% !important;  /* Utilise toute la largeur disponible */
+        height: auto !important;  /* Maintient les proportions de l'image */
+        margin: 0 auto !important;  /* Centre l'image horizontalement */
+        object-fit: cover !important;  /* Couvre sans distorsion */
+        scale: unset !important;  /* Supprime le scaling */
+        margin-top: 0 !important;  /* Supprime le décalage vertical */
+        margin-right: 0 !important;  /* Supprime le décalage horizontal */
+        box-shadow: none !important;  /* Supprime les ombres si présentes */
+        visibility: visible !important;  /* Forcer la visibilité */
+    }
+
+    .full_image_center {
+        page-break-before: always !important;  /* Commence sur une nouvelle page */
+        page-break-after: always !important;   /* S'assure que la page est isolée */
+        height: auto !important;  /* Adapte la hauteur */
+        width: 100% !important;   /* Adapte la largeur */
+        overflow: visible !important;  /* Autorise le débordement pour l'impression */
+    }
+}
+
